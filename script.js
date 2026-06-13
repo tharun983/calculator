@@ -1,4 +1,4 @@
-// Math functions
+// Math functions-------------------------------------------------------------------
 
 function add(a,b) {
     return a+b;
@@ -19,7 +19,7 @@ function division(a,b) {
     return a/b;
 }
 
-// operate
+// operate----------------------------------------------------------------------------
 
 function operate(operator,a,b) {
     if (operator === "+") return add(a,b);
@@ -28,3 +28,42 @@ function operate(operator,a,b) {
     if (operator === "/") return division(a,b);
     return null; 
 }
+
+// State-------------------------------------------------------------------------------
+
+let currentInput = "0";
+
+//Grab DOM elements--------------------------------------------------------------------
+
+const resultDisplay = document.getElementById("result");
+
+// Update Display-----------------------------------------------------------------------
+
+function updateDisplay(value) {
+    resultDisplay.textContent = value;
+}
+
+// Handle digit clicks -----------------------------------------------------------------
+
+function handleDigit(digit) {
+
+    if (currentInput === "0") {
+        currentInput = digit;
+    } else if (digit === "." && currentInput.includes(".")) {
+        return;
+    } else {
+        currentInput = currentInput + digit;
+    }
+
+    updateDisplay(currentInput);
+}
+
+// Event Listeners ----------------------------------------------------------------------
+
+const numberButtons = document.querySelectorAll(".number");
+
+numberButtons.forEach(function(button){
+    button.addEventListener("click",function() {
+        handleDigit(button.dataset.num);
+    });
+});
